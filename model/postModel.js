@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 const postSchema = new mongoose.Schema(
   {
-    // userId: {
-    //   type: String,
-    //   required: [true, "ID必填"],
-    // },
     userData: {
       type: mongoose.Schema.ObjectId,
       ref: "user", // id要去找user的那張表的ID
@@ -32,17 +28,24 @@ const postSchema = new mongoose.Schema(
         ref: "user", // id要去找user的那張表的ID
       },
     ],
-    comments: {
-      type: Number,
-      default: 0,
-    },
     createAt: {
       type: Date,
       default: Date.now,
     },
   },
-  { versionKey: false } //  Mongoose 檔案的內部修訂號。
+  {
+    versionKey: false, // hide Mongoose 檔案的內部修訂號。
+    toJSON: { virtuals: true }, // 使用到 virtual
+    toObject: { virtuals: true },
+  }
 );
+
+postSchema.virtual("comments", {
+  ref: "comment",
+  foreignField: "postId",
+  localField: "_id",
+});
+
 const Post = mongoose.model("post", postSchema);
 
 module.exports = Post;

@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const Post = require("../model/postModel.js");
+const Comment = require("../model/commentModel.js");
 
 const isAuth = require("../service/isAuth.js");
 const appError = require("../service/appError");
@@ -18,7 +19,11 @@ router.get(
     const allData = await Post.find(q)
       .populate({
         path: "userData",
-        select: "userName",
+        select: "userName avatarUrl",
+      })
+      .populate({
+        path: "comments",
+        select: "comment user",
       })
       .sort(timeSort);
     successHandler(res, allData);
@@ -82,6 +87,30 @@ router.delete(
   })
 );
 
+// 取得單筆POST
+router.get(
+  "/post/:id",
+  isAuth,
+  handleErrAsync(async (req, res, next) => {
+    const id = req.params.id;
+    const findPost = await Post.findById(id)
+      .populate({
+        path: "userData",
+        select: "userName avatarUrl",
+      })
+      .populate({
+        path: "comments",
+        select: "comment user",
+      });
+    if (findPost === null) {
+      appError({ errMessage: "文章不存在" }, next);
+      return;
+    }
+    successHandler(res, findPost);
+  })
+);
+
+// 修改單筆POST
 router.patch(
   "/post/:id",
   isAuth,
@@ -182,6 +211,31 @@ router.get(
     const userId = req.user.id;
     const posts = await Post.find({ likes: { $in: [userId] } });
     successHandler(res, { posts });
+  })
+);
+
+// 留言
+router.post(
+  "/post/:id/comment",
+  isAuth,
+  handleErrAsync(async (req, res, next) => {
+    const postId = req.params.id;
+    const userId = req.user.id;
+    const { comment } = req.body;
+
+    const findPostId = await Post.findById(postId);
+    if (findPostId === null) {
+      appError({ errMessage: "留言的文章不存在" }, next);
+      return;
+    }
+
+    const newComm = await Comment.create({
+      comment,
+      postId,
+      userId,
+    });
+
+    successHandler(res, newComm);
   })
 );
 
