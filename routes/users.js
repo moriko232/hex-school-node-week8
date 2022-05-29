@@ -160,4 +160,108 @@ router.post(
   })
 );
 
+// 追蹤
+router.post(
+  "/user/:id/follow",
+  isAuth,
+  handleErrAsync(async (req, res, next) => {
+    const followeUserId = req.params.id;
+    const UserId = req.user.id;
+
+    if (followeUserId === UserId) {
+      appError({ errMessage: "無法追蹤自己" }, next);
+      return;
+    }
+
+    const findUser = await User.findById(followeUserId);
+    if (findUser === null) {
+      appError({ errMessage: "追蹤的用戶不存在" }, next);
+      return;
+    }
+
+    await User.updateOne(
+      {
+        _id: UserId,
+        "following.userData": { $ne: followeUserId },
+      },
+      {
+        $addToSet: { following: { userData: followeUserId } },
+      }
+    );
+    await User.updateOne(
+      {
+        _id: followeUserId,
+        "followers.userData": { $ne: UserId },
+      },
+      {
+        $addToSet: { followers: { userData: UserId } },
+      }
+    );
+    // const followings = {
+    //   $addToSet: { following: { userData: followeUserId } },
+    // };
+    // await User.findByIdAndUpdate(
+    //   { _id: UserId, "following.userData": { $ne: followeUserId } },
+    //   followings
+    // );
+
+    // const followers = {
+    //   $addToSet: { followers: { userData: UserId } },
+    // };
+    // await User.findByIdAndUpdate(
+    //   { _id: followeUserId, "followers.userData": { $ne: UserId } },
+    //   followers
+    // );
+
+    successHandler(res, "追蹤完成!");
+  })
+);
+
+// 取消追蹤
+router.delete(
+  "/user/:id/unfollow",
+  isAuth,
+  handleErrAsync(async (req, res, next) => {
+    const unfolloweUserId = req.params.id;
+    const UserId = req.user.id;
+
+    if (unfolloweUserId === UserId) {
+      appError({ errMessage: "無法取消追蹤自己" }, next);
+      return;
+    }
+
+    const findUser = await User.findById(unfolloweUserId);
+    if (findUser === null) {
+      appError({ errMessage: "取消追蹤的用戶不存在" }, next);
+      return;
+    }
+
+    const unfollowings = {
+      $pull: { following: { userData: unfolloweUserId } },
+    };
+    await User.findByIdAndUpdate({ _id: UserId }, unfollowings);
+
+    const unfollowers = {
+      $pull: { followers: { userData: UserId } },
+    };
+    await User.findByIdAndUpdate({ _id: unfolloweUserId }, unfollowers);
+    successHandler(res, "取消追蹤完成!");
+  })
+);
+
+// 取得會員追蹤名單
+router.get(
+  "/user/following",
+  isAuth,
+  handleErrAsync(async (req, res, next) => {
+    const UserId = req.user.id;
+    const UserData = await User.findById(UserId);
+    const followings = UserData.following.populate({
+      path: "userData",
+      select: "userName",
+    });
+    successHandler(res, followings);
+  })
+);
+
 module.exports = router;

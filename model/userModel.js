@@ -24,6 +24,24 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    followers: [
+      {
+        userData: { type: mongoose.Schema.ObjectId, ref: "User" },
+        createAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    following: [
+      {
+        userData: { type: mongoose.Schema.ObjectId, ref: "User" },
+        createAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
     createAt: {
       type: Date,
       default: Date.now,
@@ -32,6 +50,21 @@ const userSchema = new mongoose.Schema(
   },
   { versionKey: false }
 );
+
+// 若有find 則同時觸發此功能
+userSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "following",
+    populate: {
+      path: "userData",
+      model: "user",
+      select: "userName userId",
+    },
+  });
+
+  next();
+});
+
 const User = mongoose.model("user", userSchema);
 
 module.exports = User;
