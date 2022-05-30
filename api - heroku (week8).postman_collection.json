@@ -1,0 +1,738 @@
+{
+	"info": {
+		"_postman_id": "8f5682f9-3982-4b18-82e5-1124a754ede5",
+		"name": "api - heroku (week8)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16114693"
+	},
+	"item": [
+		{
+			"name": "會員功能 user",
+			"item": [
+				{
+					"name": "會員註冊",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"老皮\",\r\n    \"email\": \"bbb@gmail.com\",\r\n    \"password\": \"a123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quiet-dusk-11244.herokuapp.com/user/sign_up",
+							"protocol": "https",
+							"host": [
+								"quiet-dusk-11244",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"user",
+								"sign_up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "會員登入",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ccc@gmail.com\",\r\n    \"password\": \"a123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quiet-dusk-11244.herokuapp.com/user/login",
+							"protocol": "https",
+							"host": [
+								"quiet-dusk-11244",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "重設密碼",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\": \"b123456789\",\r\n    \"password\": \"a123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quiet-dusk-11244.herokuapp.com/user/updatePassword",
+							"protocol": "https",
+							"host": [
+								"quiet-dusk-11244",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"user",
+								"updatePassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得會員資料",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\": \"a123456789\",\r\n    \"password\": \"b123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quiet-dusk-11244.herokuapp.com/user/profile",
+							"protocol": "https",
+							"host": [
+								"quiet-dusk-11244",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改會員資料",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODllNzFlYjEyNmMxZDEwNGE5ZmIzYyIsImlhdCI6MTY1MzIwNjUwMywiZXhwIjoxNjUzODExMzAzfQ.lhp0ksAQfPAm_1C2NSjd2XtXRV2xnw_Ws3kBl0RHYd4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"阿寶\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quiet-dusk-11244.herokuapp.com/user/profile",
+							"protocol": "https",
+							"host": [
+								"quiet-dusk-11244",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "列出所有會員",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quiet-dusk-11244.herokuapp.com/users",
+							"protocol": "https",
+							"host": [
+								"quiet-dusk-11244",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "會員按讚追蹤動態",
+			"item": [
+				{
+					"name": "追蹤會員",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODllNzFlYjEyNmMxZDEwNGE5ZmIzYyIsImlhdCI6MTY1MzIwNTYyNCwiZXhwIjoxNjUzODEwNDI0fQ.GiVio31dJrLxyvds33oJ1mWM6PZljlVwZTGLalr8eDw",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quiet-dusk-11244.herokuapp.com/user/6294d36f0f6a9eb4c22a73ef/follow",
+							"protocol": "https",
+							"host": [
+								"quiet-dusk-11244",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"user",
+								"6294d36f0f6a9eb4c22a73ef",
+								"follow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取消追蹤會員",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODllNzFlYjEyNmMxZDEwNGE5ZmIzYyIsImlhdCI6MTY1MzIwNTYyNCwiZXhwIjoxNjUzODEwNDI0fQ.GiVio31dJrLxyvds33oJ1mWM6PZljlVwZTGLalr8eDw",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quiet-dusk-11244.herokuapp.com/user/6294d36f0f6a9eb4c22a73ef/unfollow",
+							"protocol": "https",
+							"host": [
+								"quiet-dusk-11244",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"user",
+								"6294d36f0f6a9eb4c22a73ef",
+								"unfollow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得按讚列表",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODllNzFlYjEyNmMxZDEwNGE5ZmIzYyIsImlhdCI6MTY1MzIwNTYyNCwiZXhwIjoxNjUzODEwNDI0fQ.GiVio31dJrLxyvds33oJ1mWM6PZljlVwZTGLalr8eDw",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quiet-dusk-11244.herokuapp.com/likelist",
+							"protocol": "https",
+							"host": [
+								"quiet-dusk-11244",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"likelist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得個人追蹤名單",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODllNzFlYjEyNmMxZDEwNGE5ZmIzYyIsImlhdCI6MTY1MzIwNTYyNCwiZXhwIjoxNjUzODEwNDI0fQ.GiVio31dJrLxyvds33oJ1mWM6PZljlVwZTGLalr8eDw",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quiet-dusk-11244.herokuapp.com/user/following",
+							"protocol": "https",
+							"host": [
+								"quiet-dusk-11244",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"user",
+								"following"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "動態貼文 post",
+			"item": [
+				{
+					"name": "取得所有貼文",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://quiet-dusk-11244.herokuapp.com/posts?timeSort=desc",
+							"protocol": "https",
+							"host": [
+								"quiet-dusk-11244",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "timeSort",
+									"value": "desc"
+								},
+								{
+									"key": "q",
+									"value": "超讚",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得一筆貼文",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tag\": \"心情\",\r\n    \"userName\": \"老皮\",\r\n    \"title\": \"演唱會嗨到爆><\",\r\n    \"content\": \"超讚\",\r\n    \"imgUrl\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quiet-dusk-11244.herokuapp.com/post/6294d44d0f6a9eb4c22a73f9",
+							"protocol": "https",
+							"host": [
+								"quiet-dusk-11244",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"post",
+								"6294d44d0f6a9eb4c22a73f9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增貼文",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"發現神秘洞窟\",\r\n    \"content\": \"徵求冒險夥伴\",\r\n    \"imgUrl\": \"\",\r\n    \"tag\": \"新聞\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quiet-dusk-11244.herokuapp.com/post",
+							"protocol": "https",
+							"host": [
+								"quiet-dusk-11244",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "按讚貼文",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quiet-dusk-11244.herokuapp.com/post/6294d44d0f6a9eb4c22a73f9/likes",
+							"protocol": "https",
+							"host": [
+								"quiet-dusk-11244",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"post",
+								"6294d44d0f6a9eb4c22a73f9",
+								"likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取消按讚貼文",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quiet-dusk-11244.herokuapp.com/post/6294d44d0f6a9eb4c22a73f9/likes",
+							"protocol": "https",
+							"host": [
+								"quiet-dusk-11244",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"post",
+								"6294d44d0f6a9eb4c22a73f9",
+								"likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增一則貼文的留言",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\": \"有人嗎?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quiet-dusk-11244.herokuapp.com/post/6294d44d0f6a9eb4c22a73f9/comment",
+							"protocol": "https",
+							"host": [
+								"quiet-dusk-11244",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"post",
+								"6294d44d0f6a9eb4c22a73f9",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得會員貼文",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quiet-dusk-11244.herokuapp.com/post/user/629309e907279936bd7f6baf",
+							"protocol": "https",
+							"host": [
+								"quiet-dusk-11244",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"post",
+								"user",
+								"629309e907279936bd7f6baf"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "其他",
+			"item": [
+				{
+					"name": "上傳圖片",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": "/C:/Users/morik/Desktop/aaa.txt",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"type": "file",
+									"src": "/C:/Users/morik/Desktop/async-cheatsheet.png",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"type": "file",
+									"src": "/C:/Users/morik/Desktop/unnamed .jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://quiet-dusk-11244.herokuapp.com/upload",
+							"protocol": "https",
+							"host": [
+								"quiet-dusk-11244",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"upload"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
