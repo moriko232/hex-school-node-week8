@@ -204,12 +204,13 @@ router.get(
 
 // 取得會員自己的按讚列表
 router.get(
-  "/post/likelist",
+  "/likelist",
   isAuth,
   handleErrAsync(async (req, res, next) => {
     console.log("user id", req.user);
     const userId = req.user.id;
     const posts = await Post.find({ likes: { $in: [userId] } });
+    console.log("posts----------", posts);
     successHandler(res, { posts });
   })
 );

@@ -256,10 +256,7 @@ router.get(
   handleErrAsync(async (req, res, next) => {
     const UserId = req.user.id;
     const UserData = await User.findById(UserId);
-    const followings = UserData.following.populate({
-      path: "userData",
-      select: "userName",
-    });
+    const followings = UserData.following
     successHandler(res, followings);
   })
 );
